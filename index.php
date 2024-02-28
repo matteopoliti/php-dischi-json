@@ -9,6 +9,12 @@
     <!-- link bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <!-- link font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- link al css -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
 </head>
 
 <body data-bs-theme="dark">
@@ -30,13 +36,29 @@
 
         <main class="container">
             <div class="row gap-5 justify-content-center ">
-                <div class="card bg-secondary-subtle p-5 col-3" v-for="(item, index) in arrayDischi" :key="index">
-                    <img :src="item.poster" class="card-img-top" alt="...">
+                <div class="card bg-secondary-subtle p-5 col-3" v-for="(item, index) in arrayDischi" :key="index" @click="selectDisk(item)">
+                    <img :src="item.poster" class="card-img-top" alt="poster">
                     <div class="d-flex flex-column justify-content-center text-center mt-3">
                         <h4 class="card-text">{{item.title}}</h4>
                         <span class="card-text">{{item.author}}</span>
                         <span class="card-text mt-2 fw-bold fs-5">{{item.year}}</span>
                     </div>
+                </div>
+                <div v-if="selectedDisk" class="modal" :class="{ active: isActive }">
+
+                    <div>
+                        <img :src="selectedDisk.poster" alt="poster">
+                        <div class=" d-flex flex-column text-center gap-2  mt-3">
+                            <h4>{{ selectedDisk.title }}</h4>
+                            <span>{{ selectedDisk.author }}</span>
+                            <span class="fw-bold fs-5">{{ selectedDisk.year }}</span>
+                            <span>{{ selectedDisk.genre }}</span>
+
+                        </div>
+
+                    </div>
+
+                    <i class="fa-solid fa-xmark" :class="{ active: isActive }" @click="toggleOpenClose"></i>
                 </div>
 
             </div>
